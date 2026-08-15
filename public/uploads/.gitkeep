@@ -1,0 +1,3 @@
+# This directory stores uploaded files during local development
+# Note: Files in this directory are not persistent on Vercel deployments
+# Use Vercel Blob or S3-compatible storage for production
