@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Logo from '@/components/shared/Logo'
+import { SERVICE_CATALOG } from '@/lib/data/services'
 import { Facebook, Linkedin, Twitter, Instagram, Mail, Phone } from 'lucide-react'
 
 interface FooterProps {
@@ -17,18 +18,15 @@ interface FooterProps {
 
 export default function Footer({ settings }: FooterProps) {
   const currentYear = new Date().getFullYear()
-  
-  // Provide defaults if settings are missing
-  const brandName = settings?.brandName || 'Profile Environmental Support Services'
+
+  const brandName = settings?.brandName || 'OPROFILE Environmental Support Services'
   const primaryEmail = settings?.primaryEmail || 'info@environmentalservices.ca'
   const primaryPhone = settings?.primaryPhone || '1-800-251-0034'
 
-  const serviceLinks = [
-    { label: 'Infection Prevention Control', href: '/services/infection-prevention-control' },
-    { label: 'Sustainability', href: '/services/sustainability' },
-    { label: 'Steam Cleaning', href: '/services/steam-cleaning' },
-    { label: 'Green Cleaning', href: '/services/green-cleaning' },
-  ]
+  const serviceLinks = SERVICE_CATALOG.slice(0, 8).map((service) => ({
+    label: service.title,
+    href: `/services/${service.slug}`,
+  }))
 
   const marketLinks = [
     { label: 'Healthcare Facilities', href: '/markets/healthcare-facilities' },
@@ -47,94 +45,89 @@ export default function Footer({ settings }: FooterProps) {
   ]
 
   return (
-    <footer className="bg-deep-navy text-white">
-      <div className="container-custom py-16 md:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
-          {/* Brand Column */}
+    <footer className="bg-white border-t border-gray-200 text-graphite">
+      <div className="container-custom py-14 md:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
           <div className="lg:col-span-1">
-            <Logo variant="light" size="lg" className="mb-6" />
-            {settings?.footerDescription && (
-              <p className="text-clean-aqua/80 text-sm leading-relaxed mb-6">
-                {settings.footerDescription}
-              </p>
-            )}
-            
-            {/* Contact Info */}
-            <div className="space-y-3">
+            <Logo size="lg" className="mb-5" />
+            <p className="text-sm text-graphite/70 leading-relaxed mb-6">
+              {settings?.footerDescription ||
+                'Professional commercial cleaning, infection prevention and sustainable facility solutions for healthcare, corporate and education environments.'}
+            </p>
+
+            <div className="space-y-2.5">
               <a
                 href={`tel:${primaryPhone}`}
-                className="flex items-center space-x-3 text-sm text-clean-aqua hover:text-white transition-colors"
+                className="flex items-center gap-2.5 text-sm text-graphite/80 hover:text-profile-blue transition-colors"
               >
-                <Phone className="w-4 h-4" />
+                <Phone className="w-4 h-4 text-profile-blue" />
                 <span>{primaryPhone}</span>
               </a>
               <a
                 href={`mailto:${primaryEmail}`}
-                className="flex items-center space-x-3 text-sm text-clean-aqua hover:text-white transition-colors"
+                className="flex items-center gap-2.5 text-sm text-graphite/80 hover:text-profile-blue transition-colors"
               >
-                <Mail className="w-4 h-4" />
+                <Mail className="w-4 h-4 text-profile-blue" />
                 <span>{primaryEmail}</span>
               </a>
             </div>
 
-            {/* Social Links */}
-            <div className="flex items-center space-x-4 mt-6">
+            <div className="flex items-center gap-3 mt-6">
               {settings?.facebookUrl && (
                 <a
                   href={settings.facebookUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-white/10 hover:bg-profile-blue flex items-center justify-center transition-colors"
+                  className="w-9 h-9 rounded-full bg-soft-ice hover:bg-profile-blue hover:text-white flex items-center justify-center transition-colors text-profile-blue"
                   aria-label="Facebook"
                 >
-                  <Facebook className="w-5 h-5" />
+                  <Facebook className="w-4 h-4" />
                 </a>
               )}
-              {settings.linkedinUrl && (
+              {settings?.linkedinUrl && (
                 <a
                   href={settings.linkedinUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-white/10 hover:bg-profile-blue flex items-center justify-center transition-colors"
+                  className="w-9 h-9 rounded-full bg-soft-ice hover:bg-profile-blue hover:text-white flex items-center justify-center transition-colors text-profile-blue"
                   aria-label="LinkedIn"
                 >
-                  <Linkedin className="w-5 h-5" />
+                  <Linkedin className="w-4 h-4" />
                 </a>
               )}
-              {settings.twitterUrl && (
+              {settings?.twitterUrl && (
                 <a
                   href={settings.twitterUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-white/10 hover:bg-profile-blue flex items-center justify-center transition-colors"
+                  className="w-9 h-9 rounded-full bg-soft-ice hover:bg-profile-blue hover:text-white flex items-center justify-center transition-colors text-profile-blue"
                   aria-label="Twitter"
                 >
-                  <Twitter className="w-5 h-5" />
+                  <Twitter className="w-4 h-4" />
                 </a>
               )}
-              {settings.instagramUrl && (
+              {settings?.instagramUrl && (
                 <a
                   href={settings.instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-white/10 hover:bg-profile-blue flex items-center justify-center transition-colors"
+                  className="w-9 h-9 rounded-full bg-soft-ice hover:bg-profile-blue hover:text-white flex items-center justify-center transition-colors text-profile-blue"
                   aria-label="Instagram"
                 >
-                  <Instagram className="w-5 h-5" />
+                  <Instagram className="w-4 h-4" />
                 </a>
               )}
             </div>
           </div>
 
-          {/* Services Column */}
           <div>
-            <h3 className="font-display text-lg font-semibold mb-6">Services</h3>
-            <ul className="space-y-3">
+            <h3 className="font-display text-base font-semibold mb-5 text-graphite">Services</h3>
+            <ul className="space-y-2.5">
               {serviceLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-clean-aqua/80 hover:text-white transition-colors"
+                    className="text-sm text-graphite/70 hover:text-profile-blue transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -143,15 +136,14 @@ export default function Footer({ settings }: FooterProps) {
             </ul>
           </div>
 
-          {/* Markets Column */}
           <div>
-            <h3 className="font-display text-lg font-semibold mb-6">Markets</h3>
-            <ul className="space-y-3">
+            <h3 className="font-display text-base font-semibold mb-5 text-graphite">Markets</h3>
+            <ul className="space-y-2.5">
               {marketLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-clean-aqua/80 hover:text-white transition-colors"
+                    className="text-sm text-graphite/70 hover:text-profile-blue transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -160,15 +152,14 @@ export default function Footer({ settings }: FooterProps) {
             </ul>
           </div>
 
-          {/* Quick Links Column */}
           <div>
-            <h3 className="font-display text-lg font-semibold mb-6">Quick Links</h3>
-            <ul className="space-y-3">
+            <h3 className="font-display text-base font-semibold mb-5 text-graphite">Quick Links</h3>
+            <ul className="space-y-2.5">
               {quickLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-clean-aqua/80 hover:text-white transition-colors"
+                    className="text-sm text-graphite/70 hover:text-profile-blue transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -178,22 +169,15 @@ export default function Footer({ settings }: FooterProps) {
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <p className="text-sm text-clean-aqua/60">
+        <div className="border-t border-gray-200 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-graphite/60">
             © {currentYear} {brandName}. All rights reserved.
           </p>
-          <div className="flex items-center space-x-6">
-            <Link
-              href="/privacy"
-              className="text-sm text-clean-aqua/60 hover:text-white transition-colors"
-            >
+          <div className="flex items-center gap-6">
+            <Link href="/privacy" className="text-sm text-graphite/60 hover:text-profile-blue transition-colors">
               Privacy Policy
             </Link>
-            <Link
-              href="/terms"
-              className="text-sm text-clean-aqua/60 hover:text-white transition-colors"
-            >
+            <Link href="/terms" className="text-sm text-graphite/60 hover:text-profile-blue transition-colors">
               Terms of Service
             </Link>
           </div>

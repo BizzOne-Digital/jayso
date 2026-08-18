@@ -27,7 +27,7 @@ const iconMap: Record<string, any> = {
 
 export default function MarketsShowcase({ markets }: MarketsShowcaseProps) {
   return (
-    <section className="section-padding bg-deep-navy text-white overflow-hidden">
+    <section className="section-padding bg-soft-ice">
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -35,9 +35,9 @@ export default function MarketsShowcase({ markets }: MarketsShowcaseProps) {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <p className="eyebrow text-electric-cyan mb-4">Industries We Serve</p>
-          <h2 className="heading-lg mb-6">Trusted Across Multiple Markets</h2>
-          <p className="text-lg text-clean-aqua/80 max-w-3xl mx-auto">
+          <p className="eyebrow mb-4">Industries We Serve</p>
+          <h2 className="heading-lg mb-6 text-graphite">Trusted Across Multiple Markets</h2>
+          <p className="text-lg text-graphite/70 max-w-3xl mx-auto">
             We understand the unique challenges and requirements of diverse facility types.
           </p>
         </motion.div>
@@ -55,21 +55,21 @@ export default function MarketsShowcase({ markets }: MarketsShowcaseProps) {
                 transition={{ duration: 0.4, delay: index * 0.1 }}
               >
                 <Link href={`/markets/${market.slug}`}>
-                  <div className="group h-full glass-panel p-6 hover:bg-white/20 transition-all duration-300">
+                  <div className="group h-full bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-profile-blue/20 transition-all duration-300">
                     <div className="flex items-start space-x-4">
                       <div className="flex-shrink-0">
-                        <div className="w-12 h-12 rounded-lg bg-profile-blue/20 flex items-center justify-center group-hover:bg-profile-blue group-hover:scale-110 transition-all">
-                          <Icon className="w-6 h-6 text-electric-cyan group-hover:text-white transition-colors" />
+                        <div className="w-12 h-12 rounded-xl bg-profile-blue/10 flex items-center justify-center group-hover:bg-profile-blue group-hover:scale-105 transition-all">
+                          <Icon className="w-6 h-6 text-profile-blue group-hover:text-white transition-colors" />
                         </div>
                       </div>
                       <div className="flex-1">
-                        <h3 className="font-display text-lg font-semibold mb-2 group-hover:text-electric-cyan transition-colors">
+                        <h3 className="font-display text-lg font-semibold mb-2 text-graphite group-hover:text-profile-blue transition-colors">
                           {market.title}
                         </h3>
-                        <p className="text-sm text-clean-aqua/70 mb-3 line-clamp-2">
+                        <p className="text-sm text-graphite/65 mb-3 line-clamp-2">
                           {market.excerpt}
                         </p>
-                        <span className="inline-flex items-center text-xs font-medium text-electric-cyan group-hover:gap-1 transition-all">
+                        <span className="inline-flex items-center text-xs font-semibold text-profile-blue group-hover:gap-1 transition-all">
                           Learn More
                           <ArrowRight className="ml-1 w-3 h-3 group-hover:translate-x-1 transition-transform" />
                         </span>

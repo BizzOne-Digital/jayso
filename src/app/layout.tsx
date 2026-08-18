@@ -15,13 +15,18 @@ const spaceGrotesk = Space_Grotesk({
 })
 
 export const metadata: Metadata = {
-  title: 'Profile Environmental Support Services',
-  description: 'Commercial cleaning, infection-prevention, sustainability and staff-support solutions designed around your facility.',
-  keywords: 'commercial cleaning, infection prevention, sustainability, green cleaning, steam cleaning, environmental services',
+  title: {
+    default: 'OPROFILE Environmental Support Services',
+    template: '%s | OPROFILE Environmental Support Services',
+  },
+  description:
+    'Commercial cleaning, infection prevention, sustainability and facility support solutions designed around the way your organization works.',
+  keywords:
+    'commercial cleaning, infection prevention, sustainability, green cleaning, steam cleaning, environmental services, OPROFILE',
   icons: {
-    icon: '/logo.png',
-    shortcut: '/logo.png',
-    apple: '/logo.png',
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
   },
 }
 

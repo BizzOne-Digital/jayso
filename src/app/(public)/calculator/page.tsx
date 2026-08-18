@@ -1,7 +1,14 @@
 import { connectDB } from '@/lib/db/mongoose'
 import Integration from '@/lib/models/Integration'
+import PageHero from '@/components/public/PageHero'
 import { Calculator, ExternalLink, AlertCircle } from 'lucide-react'
 import Link from 'next/link'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Cleaning Calculator',
+  description: 'Evaluate your current cleaning service provider with our free assessment calculator.',
+}
 
 async function getCalculatorUrl() {
   await connectDB()
@@ -14,19 +21,13 @@ export default async function CalculatorPage() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero */}
-      <section className="bg-gradient-to-br from-profile-blue to-electric-cyan text-white py-32">
-        <div className="container-custom text-center">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 rounded-full mb-6">
-            <Calculator className="w-10 h-10" />
-          </div>
-          <h1 className="heading-xl mb-6">Cleaning Evaluation Calculator</h1>
-          <p className="text-xl text-white/90 max-w-3xl mx-auto">
-            Find out if it&apos;s time for a change! Use our assessment calculator to evaluate 
-            your current cleaning service provider.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        image="/hero-bg.png"
+        align="center"
+        eyebrow="Free Assessment Tool"
+        title="Cleaning Evaluation Calculator"
+        subtitle="Find out if it's time for a change. Use our assessment calculator to evaluate your current cleaning service provider."
+      />
 
       {/* Info Section */}
       <section className="section-padding bg-white">
@@ -99,25 +100,18 @@ export default async function CalculatorPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="section-padding bg-deep-navy text-white">
+      <section className="section-padding bg-profile-blue text-white">
         <div className="container-custom text-center max-w-3xl mx-auto">
-          <h2 className="heading-lg mb-6">Ready to Make a Change?</h2>
-          <p className="text-xl text-clean-aqua/90 mb-8">
-            If your evaluation reveals gaps in service, we&apos;re here to help. 
-            Experience the Profile Environmental difference.
+          <h2 className="font-display text-3xl font-bold mb-5">Ready to Make a Change?</h2>
+          <p className="text-lg text-white/90 mb-8">
+            If your evaluation reveals gaps in service, we&apos;re here to help. Experience the
+            OPROFILE Environmental difference.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/booking"
-              className="inline-flex items-center justify-center px-8 py-4 bg-electric-cyan text-[#0a1520] font-bold text-base rounded-lg hover:bg-[#5DD5FF] transition-all shadow-lg"
-            >
+            <Link href="/booking" className="inline-flex items-center justify-center px-8 py-3.5 bg-white text-profile-blue font-semibold text-sm rounded-lg hover:bg-soft-ice transition-all">
               Request Consultation
             </Link>
-            <Link
-              href="/services"
-              className="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-bold text-base rounded-lg hover:bg-white hover:text-profile-blue transition-all"
-            >
+            <Link href="/services" className="inline-flex items-center justify-center px-8 py-3.5 border-2 border-white/80 text-white font-semibold text-sm rounded-lg hover:bg-white/10 transition-all">
               View Our Services
             </Link>
           </div>

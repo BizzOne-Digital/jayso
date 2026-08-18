@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Phone, Mail, MessageCircle, CheckCircle } from 'lucide-react'
 import Button from '@/components/shared/Button'
+import PageHero from '@/components/public/PageHero'
 
 export default function BookingPage() {
   const [formData, setFormData] = useState({
@@ -80,15 +81,11 @@ export default function BookingPage() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero */}
-      <section className="bg-deep-navy text-white py-32">
-        <div className="container-custom">
-          <h1 className="heading-xl mb-6">Request a Consultation</h1>
-          <p className="text-xl text-clean-aqua/90 max-w-2xl">
-            Let&apos;s discuss how we can help transform your facility with our professional cleaning and environmental support services.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        image="/hero-bg.png"
+        title="Request a Consultation"
+        subtitle="Let's discuss how we can help transform your facility with our professional cleaning and environmental support services."
+      />
 
       {/* Contact Methods */}
       <section className="section-padding bg-soft-ice">

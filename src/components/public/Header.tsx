@@ -41,17 +41,16 @@ export default function Header({ settings, integrations }: HeaderProps) {
       </a>
 
       {/* Top Utility Bar */}
-      <div className="bg-[#020B15] border-b border-white/5">
+      <div className="bg-soft-ice border-b border-gray-200">
         <div className="container-custom">
-          <div className="flex items-center justify-between h-10 text-xs sm:text-sm overflow-x-auto">
-            <div className="flex items-center space-x-3 sm:space-x-6">
+          <div className="flex items-center justify-between h-9 text-xs sm:text-sm text-graphite/80">
+            <div className="flex items-center gap-4 sm:gap-6">
               <a
                 href={`tel:${settings.primaryPhone}`}
-                className="flex items-center space-x-1 sm:space-x-2 text-white/80 hover:text-white transition-colors whitespace-nowrap"
+                className="flex items-center gap-1.5 hover:text-profile-blue transition-colors"
               >
-                <Phone className="w-3.5 h-3.5 flex-shrink-0" />
-                <span className="hidden sm:inline">{settings.primaryPhone || '1-800-251-0034'}</span>
-                <span className="sm:hidden">Call</span>
+                <Phone className="w-3.5 h-3.5" />
+                <span>{settings.primaryPhone || '1-800-251-0034'}</span>
               </a>
 
               {settings.whatsappNumber && (
@@ -59,9 +58,9 @@ export default function Header({ settings, integrations }: HeaderProps) {
                   href={`https://wa.me/${settings.whatsappNumber.replace(/\D/g, '')}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center space-x-1 sm:space-x-2 text-white/80 hover:text-white transition-colors whitespace-nowrap"
+                  className="hidden sm:flex items-center gap-1.5 hover:text-profile-blue transition-colors"
                 >
-                  <MessageCircle className="w-3.5 h-3.5 flex-shrink-0" />
+                  <MessageCircle className="w-3.5 h-3.5" />
                   <span>WhatsApp</span>
                 </a>
               )}
@@ -69,9 +68,9 @@ export default function Header({ settings, integrations }: HeaderProps) {
 
             <a
               href={integrations.jotformCalculatorUrl || '/calculator'}
-              className="flex items-center space-x-1 sm:space-x-2 text-white/80 hover:text-white transition-colors whitespace-nowrap"
+              className="flex items-center gap-1.5 hover:text-profile-blue transition-colors"
             >
-              <Calculator className="w-3.5 h-3.5 flex-shrink-0" />
+              <Calculator className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Cleaning Calculator</span>
               <span className="sm:hidden">Calculator</span>
             </a>
@@ -80,22 +79,21 @@ export default function Header({ settings, integrations }: HeaderProps) {
       </div>
 
       {/* Main Header */}
-      <header className="bg-[#020B15]/80 backdrop-blur-md border-b border-white/5 sticky top-0 z-50">
+      <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
         <div className="container-custom">
-          <div className="flex items-center justify-between h-16 sm:h-20">
-            <Logo variant="brand" size="lg" />
+          <div className="flex items-center justify-between h-[80px]">
+            <Logo size="lg" />
 
-            <nav
-              className="hidden lg:flex items-center space-x-8"
-              aria-label="Main navigation"
-            >
+            <nav className="hidden lg:flex items-center gap-6 xl:gap-8" aria-label="Main navigation">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    'text-sm font-medium transition-colors hover:text-electric-cyan',
-                    isActive(link.href) ? 'text-electric-cyan' : 'text-white/90'
+                    'text-sm font-medium transition-colors',
+                    isActive(link.href)
+                      ? 'text-profile-blue'
+                      : 'text-graphite/80 hover:text-profile-blue'
                   )}
                 >
                   {link.label}
@@ -104,17 +102,14 @@ export default function Header({ settings, integrations }: HeaderProps) {
             </nav>
 
             <div className="hidden lg:block">
-              <Link
-                href="/booking"
-                className="inline-flex items-center px-6 py-2.5 bg-electric-cyan text-deep-navy font-semibold text-sm rounded-lg hover:bg-electric-cyan/90 transition-all"
-              >
-                REQUEST A CONSULTATION
+              <Link href="/booking" className="btn-primary text-sm px-5 py-2.5">
+                Request a Consultation
               </Link>
             </div>
 
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg text-white"
+              className="lg:hidden p-2 rounded-lg text-graphite hover:bg-gray-100"
               aria-label="Toggle menu"
               aria-expanded={isMobileMenuOpen}
             >
@@ -123,10 +118,9 @@ export default function Header({ settings, integrations }: HeaderProps) {
           </div>
         </div>
 
-        {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden bg-deep-navy border-t border-white/10">
-            <nav className="container-custom py-4 space-y-2" aria-label="Mobile navigation">
+          <div className="lg:hidden bg-white border-t border-gray-200">
+            <nav className="container-custom py-4 space-y-1" aria-label="Mobile navigation">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
@@ -135,19 +129,20 @@ export default function Header({ settings, integrations }: HeaderProps) {
                   className={cn(
                     'block px-4 py-3 rounded-lg text-sm font-medium transition-colors',
                     isActive(link.href)
-                      ? 'bg-electric-cyan/10 text-electric-cyan'
-                      : 'text-white/90 hover:bg-white/5'
+                      ? 'bg-profile-blue/10 text-profile-blue'
+                      : 'text-graphite hover:bg-gray-50'
                   )}
                 >
                   {link.label}
                 </Link>
               ))}
-              <div className="pt-4">
+              <div className="pt-3 px-4">
                 <Link
                   href="/booking"
-                  className="block w-full text-center px-6 py-3 bg-electric-cyan text-deep-navy font-semibold text-sm rounded-lg"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="btn-primary w-full text-center text-sm"
                 >
-                  REQUEST A CONSULTATION
+                  Request a Consultation
                 </Link>
               </div>
             </nav>

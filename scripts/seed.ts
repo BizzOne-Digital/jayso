@@ -11,6 +11,7 @@ import FAQ from '../src/lib/models/FAQ'
 import Resource from '../src/lib/models/Resource'
 import Product from '../src/lib/models/Product'
 import Testimonial from '../src/lib/models/Testimonial'
+import { SERVICE_CATALOG } from '../src/lib/data/services'
 
 async function seed() {
   try {
@@ -47,7 +48,7 @@ async function seed() {
     // Create Site Settings
     console.log('⚙️ Creating site settings...')
     await SiteSettings.create({
-      brandName: 'Profile Environmental Support Services',
+      brandName: 'OPROFILE Environmental Support Services',
       logoUrl: '/logo.png',
       primaryEmail: 'info@environmentalservices.ca',
       primaryPhone: '1-800-251-0034',
@@ -75,128 +76,21 @@ async function seed() {
 
     // Create Services
     console.log('🛠️ Creating services...')
-    const services = await Service.insertMany([
-      {
-        title: 'Infection Prevention Control',
-        slug: 'infection-prevention-control',
-        excerpt: 'Advanced cleaning protocols designed to minimize pathogen transmission and protect facility occupants.',
-        description: '<p>Our Infection Prevention Control services implement evidence-based cleaning protocols specifically designed for healthcare and high-risk environments. We focus on reducing pathogen transmission through specialized techniques, EPA-registered disinfectants, and rigorous quality control.</p><p>This service is essential for medical facilities, long-term care homes, dental offices, and any environment where infection control is critical.</p>',
-        challenge: 'Healthcare-associated infections cost billions annually. Facilities need reliable, compliant cleaning that actually reduces transmission risks.',
-        approach: 'We combine specialized training, hospital-grade disinfectants, touch-point focus, verification systems, and continuous quality monitoring.',
-        scope: [
-          'EPA-registered hospital-grade disinfectants',
-          'High-touch surface focus',
-          'Terminal cleaning protocols',
-          'Staff infection control training',
-          'Quality verification systems',
-        ],
-        benefits: [
-          'Reduced infection transmission',
-          'Regulatory compliance support',
-          'Staff and patient safety',
-          'Documentation and tracking',
-        ],
-        process: [
-          'Facility assessment and risk analysis',
-          'Customized protocol development',
-          'Staff training and certification',
-          'Implementation and monitoring',
-          'Continuous improvement',
-        ],
-        order: 1,
+    const services = await Service.insertMany(
+      SERVICE_CATALOG.map((service) => ({
+        title: service.title,
+        slug: service.slug,
+        excerpt: service.excerpt,
+        description: service.description,
+        imageUrl: service.imageUrl,
+        heroImageUrl: service.heroImageUrl,
+        imageAlt: service.imageAlt,
+        ctaLabel: service.ctaLabel,
+        ctaUrl: '/booking',
+        order: service.order,
         status: 'published',
-      },
-      {
-        title: 'Sustainability',
-        slug: 'sustainability',
-        excerpt: 'Eco-conscious cleaning solutions that reduce environmental impact while maintaining exceptional results.',
-        description: '<p>Our Sustainability service delivers environmentally responsible cleaning without compromising effectiveness. We use Green Seal certified products, reduce waste, optimize resource use, and help facilities meet sustainability goals.</p><p>Perfect for organizations committed to environmental stewardship and corporate social responsibility.</p>',
-        challenge: 'Organizations want to reduce their environmental footprint, but worry that green cleaning means reduced effectiveness.',
-        approach: 'We prove that sustainable practices and superior cleaning outcomes go hand-in-hand through smart product selection, waste reduction, and resource optimization.',
-        scope: [
-          'Green Seal certified cleaning products',
-          'Microfiber and reusable systems',
-          'Waste reduction programs',
-          'Energy-efficient equipment',
-          'Water conservation practices',
-        ],
-        benefits: [
-          'Reduced environmental impact',
-          'Healthier indoor air quality',
-          'Cost savings over time',
-          'Enhanced corporate reputation',
-        ],
-        process: [
-          'Sustainability audit',
-          'Green product transition',
-          'Staff eco-training',
-          'Implementation and tracking',
-          'Reporting and improvement',
-        ],
-        order: 2,
-        status: 'published',
-      },
-      {
-        title: 'Steam Cleaning',
-        slug: 'steam-cleaning',
-        excerpt: 'Chemical-free deep cleaning using high-temperature steam for superior sanitation and safety.',
-        description: '<p>Steam Cleaning harnesses the power of superheated steam to sanitize surfaces without chemicals. This method is ideal for sensitive environments, food service areas, and facilities seeking chemical-free solutions.</p><p>Steam cleaning kills bacteria, viruses, and allergens while being completely safe for occupants and the environment.</p>',
-        challenge: 'Chemical residues can trigger allergies, contaminate food areas, and create health concerns. Facilities need effective alternatives.',
-        approach: 'We use commercial-grade steam equipment that reaches temperatures sufficient to kill pathogens without any chemical additives.',
-        scope: [
-          'High-temperature steam systems',
-          'Hard surface sanitization',
-          'Grout and tile restoration',
-          'Equipment and fixture cleaning',
-          'Allergen reduction',
-        ],
-        benefits: [
-          'Zero chemical residue',
-          'Kills 99.9% of pathogens',
-          'Safe for food service areas',
-          'Environmentally friendly',
-        ],
-        process: [
-          'Surface assessment',
-          'Equipment selection',
-          'Steam application',
-          'Quality verification',
-          'Scheduled maintenance',
-        ],
-        order: 3,
-        status: 'published',
-      },
-      {
-        title: 'Green Cleaning',
-        slug: 'green-cleaning',
-        excerpt: 'Certified environmentally-friendly cleaning programs that protect both people and planet.',
-        description: '<p>Green Cleaning goes beyond traditional methods by using certified eco-friendly products and sustainable practices throughout our entire service delivery. We focus on reducing toxic exposure while maintaining the highest cleaning standards.</p><p>This service is ideal for schools, offices, and organizations prioritizing occupant health and environmental responsibility.</p>',
-        challenge: 'Traditional cleaning products can contain harmful chemicals that affect indoor air quality and occupant health.',
-        approach: 'We exclusively use third-party certified green products, implement sustainable practices, and train staff in environmentally responsible techniques.',
-        scope: [
-          'Green Seal and EcoLogo certified products',
-          'Low-VOC formulations',
-          'Sustainable equipment and supplies',
-          'Indoor air quality optimization',
-          'Waste minimization programs',
-        ],
-        benefits: [
-          'Improved indoor air quality',
-          'Reduced chemical exposure',
-          'Environmental protection',
-          'Support for green building certifications',
-        ],
-        process: [
-          'Green product audit',
-          'Certification verification',
-          'Implementation planning',
-          'Staff training',
-          'Ongoing monitoring',
-        ],
-        order: 4,
-        status: 'published',
-      },
-    ])
+      }))
+    )
 
     // Create Markets
     console.log('🏢 Creating markets...')

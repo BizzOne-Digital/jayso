@@ -4,7 +4,6 @@ import SiteSettings from '@/lib/models/SiteSettings'
 import Integration from '@/lib/models/Integration'
 import Header from '@/components/public/Header'
 import Footer from '@/components/public/Footer'
-import CinematicIntro from '@/components/public/CinematicIntro'
 import MobileActionBar from '@/components/public/MobileActionBar'
 
 async function getLayoutData() {
@@ -17,7 +16,7 @@ async function getLayoutData() {
     // Create default settings if none exist
     if (!settings) {
       const newSettings = await SiteSettings.create({
-        brandName: 'Profile Environmental Support Services',
+        brandName: 'OPROFILE Environmental Support Services',
         primaryEmail: 'info@environmentalservices.ca',
         primaryPhone: '1-800-251-0034',
         confirmationNeeded: true,
@@ -45,7 +44,7 @@ async function getLayoutData() {
     // Return default values if database fails
     return {
       settings: {
-        brandName: 'Profile Environmental Support Services',
+        brandName: 'OPROFILE Environmental Support Services',
         primaryEmail: 'info@environmentalservices.ca',
         primaryPhone: '1-800-251-0034',
         confirmationNeeded: true,
@@ -71,9 +70,8 @@ export default async function PublicLayout({
 
   return (
     <>
-      <CinematicIntro />
       <Header settings={settings} integrations={integrations} />
-      <main id="main-content" className="min-h-screen">
+      <main id="main-content" className="min-h-screen bg-white">
         {children}
       </main>
       <MobileActionBar settings={settings} integrations={integrations} />
