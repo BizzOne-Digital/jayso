@@ -19,9 +19,9 @@ interface FooterProps {
 export default function Footer({ settings }: FooterProps) {
   const currentYear = new Date().getFullYear()
 
-  const brandName = settings?.brandName || 'OPROFILE Environmental Support Services'
+  const brandName = settings?.brandName || 'Profile Environmental Support Services'
   const primaryEmail = settings?.primaryEmail || 'info@environmentalservices.ca'
-  const primaryPhone = settings?.primaryPhone || '1-800-251-0034'
+  const primaryPhone = settings?.primaryPhone || '647-703-2900'
 
   const serviceLinks = SERVICE_CATALOG.slice(0, 8).map((service) => ({
     label: service.title,
@@ -31,8 +31,8 @@ export default function Footer({ settings }: FooterProps) {
   const marketLinks = [
     { label: 'Healthcare Facilities', href: '/markets/healthcare-facilities' },
     { label: 'Office Buildings', href: '/markets/office-buildings' },
+    { label: 'Residential Buildings', href: '/markets/residential-buildings' },
     { label: 'Retail & Commercial', href: '/markets/retail-commercial' },
-    { label: 'Industrial & Warehousing', href: '/markets/industrial-warehousing' },
   ]
 
   const quickLinks = [

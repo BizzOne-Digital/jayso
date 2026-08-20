@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Phone, Mail, MessageCircle, CheckCircle } from 'lucide-react'
 import Button from '@/components/shared/Button'
 import PageHero from '@/components/public/PageHero'
+import { AnimatedGrid, AnimatedSection } from '@/components/public/motion/FadeIn'
 
 export default function BookingPage() {
   const [formData, setFormData] = useState({
@@ -90,16 +91,16 @@ export default function BookingPage() {
       {/* Contact Methods */}
       <section className="section-padding bg-soft-ice">
         <div className="container-custom">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          <AnimatedGrid className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             <a
-              href="tel:1-800-251-0034"
+              href="tel:647-703-2900"
               className="bg-white rounded-xl p-8 text-center hover:shadow-lg transition-shadow group"
             >
               <div className="w-16 h-16 bg-profile-blue/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-profile-blue transition-colors">
                 <Phone className="w-8 h-8 text-profile-blue group-hover:text-white transition-colors" />
               </div>
               <h3 className="font-semibold text-graphite mb-2">Call Us</h3>
-              <p className="text-profile-blue font-medium">1-800-251-0034</p>
+              <p className="text-profile-blue font-medium">647-703-2900</p>
             </a>
 
             <a
@@ -114,7 +115,7 @@ export default function BookingPage() {
             </a>
 
             <a
-              href="https://wa.me/18002510034"
+              href="https://wa.me/6477032900"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-white rounded-xl p-8 text-center hover:shadow-lg transition-shadow group"
@@ -125,10 +126,9 @@ export default function BookingPage() {
               <h3 className="font-semibold text-graphite mb-2">WhatsApp</h3>
               <p className="text-profile-blue font-medium">Message Us</p>
             </a>
-          </div>
+          </AnimatedGrid>
 
-          {/* Form */}
-          <div className="max-w-3xl mx-auto bg-white rounded-2xl p-8 md:p-12 shadow-lg">
+          <AnimatedSection className="max-w-3xl mx-auto bg-white rounded-2xl p-8 md:p-12 shadow-lg">
             <h2 className="heading-md mb-8">Send Us a Message</h2>
             
             {error && (
@@ -289,7 +289,7 @@ export default function BookingPage() {
                 By submitting this form, you agree to our privacy policy and consent to being contacted.
               </p>
             </form>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
     </div>

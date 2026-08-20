@@ -16,11 +16,11 @@ async function getLayoutData() {
     // Create default settings if none exist
     if (!settings) {
       const newSettings = await SiteSettings.create({
-        brandName: 'OPROFILE Environmental Support Services',
+        brandName: 'Profile Environmental Support Services',
         primaryEmail: 'info@environmentalservices.ca',
-        primaryPhone: '1-800-251-0034',
+        primaryPhone: '647-703-2900',
         confirmationNeeded: true,
-        whatsappNumber: '18002510034',
+        whatsappNumber: '6477032900',
         facebookUrl: 'https://www.facebook.com/profile.php?id=100063455592689',
       })
       settings = newSettings.toObject() as any
@@ -44,11 +44,11 @@ async function getLayoutData() {
     // Return default values if database fails
     return {
       settings: {
-        brandName: 'OPROFILE Environmental Support Services',
+        brandName: 'Profile Environmental Support Services',
         primaryEmail: 'info@environmentalservices.ca',
-        primaryPhone: '1-800-251-0034',
+        primaryPhone: '647-703-2900',
         confirmationNeeded: true,
-        whatsappNumber: '18002510034',
+        whatsappNumber: '6477032900',
         facebookUrl: 'https://www.facebook.com/profile.php?id=100063455592689',
         footerDescription: '',
         logoUrl: '/logo.png',

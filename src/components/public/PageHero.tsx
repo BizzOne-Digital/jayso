@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { ReactNode } from 'react'
+import { FadeIn } from '@/components/public/motion/FadeIn'
 
 interface PageHeroProps {
   image?: string
@@ -9,7 +10,7 @@ interface PageHeroProps {
   title: string
   subtitle?: string
   align?: 'left' | 'center'
-  size?: 'large' | 'medium'
+  size?: 'large' | 'medium' | 'compact'
   children?: ReactNode
 }
 
@@ -24,43 +25,49 @@ export default function PageHero({
 }: PageHeroProps) {
   const heightClass =
     size === 'large'
-      ? 'min-h-[480px] sm:min-h-[520px] lg:min-h-[580px]'
-      : 'min-h-[280px] sm:min-h-[320px] lg:min-h-[380px]'
+      ? 'h-[220px] sm:h-[260px] lg:h-[300px]'
+      : size === 'compact'
+        ? 'h-[160px] sm:h-[180px] lg:h-[200px]'
+        : 'h-[180px] sm:h-[220px] lg:h-[240px]'
 
   return (
-    <section className={`relative ${heightClass} flex items-end overflow-hidden bg-graphite`}>
-      <Image
-        src={image}
-        alt=""
-        fill
-        className="object-cover object-center"
-        priority
-        sizes="100vw"
-      />
-      <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-black/30" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+    <section className="bg-white pt-6 pb-8 sm:pt-8 sm:pb-10">
+      <div className="container-custom">
+        <FadeIn immediate y={20}>
+          <div
+            className={`relative ${heightClass} rounded-2xl overflow-hidden bg-soft-ice shadow-sm border border-gray-100`}
+          >
+          <Image
+            src={image}
+            alt=""
+            fill
+            className="object-cover object-center brightness-[1.05] saturate-[0.85]"
+            priority
+            sizes="(max-width: 1280px) 100vw, 1200px"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-white/75 via-white/45 to-white/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-white/30 via-transparent to-transparent" />
+          </div>
+        </FadeIn>
 
-      <div
-        className={`container-custom relative z-10 w-full pb-10 pt-28 sm:pb-12 sm:pt-32 ${
-          align === 'center' ? 'text-center' : 'text-left'
-        }`}
-      >
-        <div className={align === 'center' ? 'max-w-3xl mx-auto' : 'max-w-2xl'}>
-          {eyebrow && (
-            <p className="text-profile-blue font-semibold text-xs sm:text-sm uppercase tracking-[0.12em] mb-3">
-              {eyebrow}
-            </p>
-          )}
-          <h1 className="text-white font-display font-bold text-3xl sm:text-4xl lg:text-5xl leading-tight mb-4">
-            {title}
-          </h1>
-          {subtitle && (
-            <p className="text-white/90 text-base sm:text-lg leading-relaxed max-w-xl">
-              {subtitle}
-            </p>
-          )}
-          {children && <div className="mt-8">{children}</div>}
-        </div>
+        <FadeIn delay={0.1} y={20} className={`mt-6 sm:mt-8 ${align === 'center' ? 'text-center' : 'text-left'}`}>
+          <div className={align === 'center' ? 'max-w-3xl mx-auto' : 'max-w-2xl'}>
+            {eyebrow && (
+              <p className="text-profile-blue font-semibold text-xs sm:text-sm uppercase tracking-[0.12em] mb-3">
+                {eyebrow}
+              </p>
+            )}
+            <h1 className="text-graphite font-display font-bold text-2xl sm:text-3xl lg:text-4xl leading-tight mb-4">
+              {title}
+            </h1>
+            {subtitle && (
+              <p className="text-graphite/75 text-base sm:text-lg leading-relaxed max-w-xl">
+                {subtitle}
+              </p>
+            )}
+            {children && <div className="mt-6">{children}</div>}
+          </div>
+        </FadeIn>
       </div>
     </section>
   )

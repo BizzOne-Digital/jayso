@@ -12,6 +12,19 @@ export interface ServiceDefinition {
 
 export const SERVICE_CATALOG: ServiceDefinition[] = [
   {
+    title: 'Infection Prevention Control',
+    slug: 'infection-prevention-control',
+    excerpt:
+      'Advanced disinfection solutions including steam cleaning and electrostatic disinfection for safe, healthy environments.',
+    description:
+      '<p>We redefine the standards of cleanliness with our specialized disinfection solutions. At Profile, we understand that cleaning is more than just tidying up—it\'s about creating a safe and healthy environment through advanced technology and meticulous methods.</p><p>Our expertise lies in steam cleaning and electrostatic disinfection, two cutting-edge techniques that ensure thorough sanitation by effectively eliminating harmful pathogens and contaminants.</p>',
+    imageUrl: '/heroes/infection-control.jpg',
+    heroImageUrl: '/heroes/infection-control.jpg',
+    imageAlt: 'Professional electrostatic disinfection service',
+    ctaLabel: 'Request for Quote',
+    order: 0,
+  },
+  {
     title: 'Disinfecting',
     slug: 'disinfecting',
     excerpt: 'Hospital-grade disinfection protocols to reduce pathogen transmission and protect occupants.',

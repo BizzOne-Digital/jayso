@@ -37,7 +37,7 @@ const SiteSettingsSchema = new Schema<ISiteSettings>(
     logoUrl: { type: String, default: '/logo.png' },
     faviconUrl: { type: String },
     primaryEmail: { type: String, required: true, default: 'info@environmentalservices.ca' },
-    primaryPhone: { type: String, required: true, default: '1-800-251-0034' },
+    primaryPhone: { type: String, required: true, default: '647-703-2900' },
     alternateEmail: { type: String },
     alternatePhone: { type: String },
     confirmationNeeded: { type: Boolean, default: true },

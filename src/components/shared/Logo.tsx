@@ -20,7 +20,7 @@ export default function Logo({ size = 'md', className = '' }: LogoProps) {
     <Link href="/" className={`inline-flex items-center ${className}`}>
       <Image
         src="/logo.png"
-        alt="OPROFILE Environmental Support Services"
+        alt="Profile Environmental Support Services"
         width={Math.round(height * 3.6)}
         height={height}
         className="h-auto w-auto max-w-none"

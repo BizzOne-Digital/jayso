@@ -48,14 +48,14 @@ async function seed() {
     // Create Site Settings
     console.log('⚙️ Creating site settings...')
     await SiteSettings.create({
-      brandName: 'OPROFILE Environmental Support Services',
+      brandName: 'Profile Environmental Support Services',
       logoUrl: '/logo.png',
       primaryEmail: 'info@environmentalservices.ca',
-      primaryPhone: '1-800-251-0034',
+      primaryPhone: '647-703-2900',
       alternateEmail: 'info@profilegroups.com',
       alternatePhone: '647-703-2900',
       confirmationNeeded: true,
-      whatsappNumber: '18002510034',
+      whatsappNumber: '6477032900',
       facebookUrl: 'https://www.facebook.com/profile.php?id=100063455592689',
       footerDescription: 'Providing comprehensive environmental support services including commercial cleaning, infection prevention, sustainability solutions, and staff training for facilities across multiple industries.',
       metaTitle: 'Profile Environmental Support Services - Commercial Cleaning & Infection Prevention',

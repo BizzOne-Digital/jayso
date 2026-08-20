@@ -1,9 +1,10 @@
 import { Metadata } from 'next'
 import PageHero from '@/components/public/PageHero'
+import { AnimatedSection } from '@/components/public/motion/FadeIn'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description: 'Privacy policy for OPROFILE Environmental Support Services.',
+  description: 'Privacy policy for Profile Environmental Support Services.',
 }
 
 export default function PrivacyPage() {
@@ -17,9 +18,9 @@ export default function PrivacyPage() {
       />
 
       <section className="section-padding bg-white">
-        <div className="container-custom max-w-4xl prose prose-lg text-graphite/80">
+        <AnimatedSection className="container-custom max-w-4xl prose prose-lg text-graphite/80">
           <p>
-            OPROFILE Environmental Support Services respects your privacy. This policy describes how we
+            Profile Environmental Support Services respects your privacy. This policy describes how we
             collect and use personal information when you visit our website or request our services.
           </p>
           <h2>Information We Collect</h2>
@@ -42,7 +43,7 @@ export default function PrivacyPage() {
             For privacy-related questions, contact us at{' '}
             <a href="mailto:info@environmentalservices.ca">info@environmentalservices.ca</a>.
           </p>
-        </div>
+        </AnimatedSection>
       </section>
     </div>
   )

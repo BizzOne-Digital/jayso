@@ -2,11 +2,12 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import PageHero from '@/components/public/PageHero'
 import { getPublishedOffers } from '@/lib/services/getPublishedContent'
+import { AnimatedGrid } from '@/components/public/motion/FadeIn'
 import { ArrowRight } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Special Offers',
-  description: 'Current offers and programs from OPROFILE Environmental Support Services.',
+  description: 'Current offers and programs from Profile Environmental Support Services.',
 }
 
 export default async function OffersPage() {
@@ -23,7 +24,7 @@ export default async function OffersPage() {
 
       <section className="section-padding bg-white">
         <div className="container-custom max-w-4xl">
-          <div className="space-y-6">
+          <AnimatedGrid className="space-y-6">
             {offers.map((offer: any) => (
               <div key={offer._id} className="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 shadow-sm hover:border-profile-blue/30 transition-colors">
                 <h2 className="font-display text-2xl font-bold text-graphite mb-3">{offer.title}</h2>
@@ -43,7 +44,7 @@ export default async function OffersPage() {
                 </Link>
               </div>
             ))}
-          </div>
+          </AnimatedGrid>
         </div>
       </section>
     </div>

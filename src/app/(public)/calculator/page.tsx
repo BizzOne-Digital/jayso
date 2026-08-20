@@ -1,6 +1,7 @@
 import { connectDB } from '@/lib/db/mongoose'
 import Integration from '@/lib/models/Integration'
 import PageHero from '@/components/public/PageHero'
+import { AnimatedGrid, AnimatedSection } from '@/components/public/motion/FadeIn'
 import { Calculator, ExternalLink, AlertCircle } from 'lucide-react'
 import Link from 'next/link'
 import { Metadata } from 'next'
@@ -32,17 +33,16 @@ export default async function CalculatorPage() {
       {/* Info Section */}
       <section className="section-padding bg-white">
         <div className="container-custom max-w-4xl">
-          <div className="text-center mb-12">
+          <AnimatedSection className="text-center mb-12">
             <h2 className="heading-lg mb-6">Are Your Needs Being Met?</h2>
             <p className="text-lg text-graphite/80 mb-8">
               Our free evaluation tool helps you objectively assess your current cleaning 
               service provider across key performance areas including quality, reliability, 
               communication, and value.
             </p>
-          </div>
+          </AnimatedSection>
 
-          {/* Benefits */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+          <AnimatedGrid className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             <div className="flex items-start space-x-4">
               <div className="w-12 h-12 bg-profile-blue/10 rounded-lg flex items-center justify-center flex-shrink-0">
                 <Calculator className="w-6 h-6 text-profile-blue" />
@@ -66,10 +66,10 @@ export default async function CalculatorPage() {
                 </p>
               </div>
             </div>
-          </div>
+          </AnimatedGrid>
 
-          {/* Embedded Calculator */}
-          <div className="bg-soft-ice rounded-2xl p-8">
+          <AnimatedSection>
+            <div className="bg-soft-ice rounded-2xl p-8">
             <div className="aspect-[4/3] bg-white rounded-xl shadow-lg overflow-hidden">
               <iframe
                 src={calculatorUrl}
@@ -96,16 +96,17 @@ export default async function CalculatorPage() {
                 <ExternalLink className="ml-2 w-4 h-4" />
               </a>
             </div>
-          </div>
+            </div>
+          </AnimatedSection>
         </div>
       </section>
 
       <section className="section-padding bg-profile-blue text-white">
-        <div className="container-custom text-center max-w-3xl mx-auto">
+        <AnimatedSection className="container-custom text-center max-w-3xl mx-auto">
           <h2 className="font-display text-3xl font-bold mb-5">Ready to Make a Change?</h2>
           <p className="text-lg text-white/90 mb-8">
             If your evaluation reveals gaps in service, we&apos;re here to help. Experience the
-            OPROFILE Environmental difference.
+            Profile Environmental difference.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/booking" className="inline-flex items-center justify-center px-8 py-3.5 bg-white text-profile-blue font-semibold text-sm rounded-lg hover:bg-soft-ice transition-all">
@@ -115,7 +116,7 @@ export default async function CalculatorPage() {
               View Our Services
             </Link>
           </div>
-        </div>
+        </AnimatedSection>
       </section>
     </div>
   )

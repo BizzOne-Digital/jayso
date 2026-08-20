@@ -2,10 +2,12 @@
 
 import Link from 'next/link'
 import { ArrowRight, Phone, Mail } from 'lucide-react'
+import { AnimatedSection } from '@/components/public/motion/FadeIn'
 
 export default function CTASection() {
   return (
-    <section className="section-padding bg-profile-blue text-white">
+    <AnimatedSection>
+      <section className="section-padding bg-profile-blue text-white">
       <div className="container-custom">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="font-display text-3xl sm:text-4xl font-bold mb-5 text-balance">
@@ -34,9 +36,9 @@ export default function CTASection() {
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-white/85 text-sm">
-            <a href="tel:1-800-251-0034" className="flex items-center gap-2 hover:text-white transition-colors">
+            <a href="tel:647-703-2900" className="flex items-center gap-2 hover:text-white transition-colors">
               <Phone className="w-4 h-4" />
-              <span>1-800-251-0034</span>
+              <span>647-703-2900</span>
             </a>
             <span className="hidden sm:block text-white/40">•</span>
             <a
@@ -50,5 +52,6 @@ export default function CTASection() {
         </div>
       </div>
     </section>
+    </AnimatedSection>
   )
 }

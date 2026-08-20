@@ -14,7 +14,7 @@ export const MARKET_CATALOG: MarketDefinition[] = [
     excerpt: 'Professional cleaning solutions for corporate environments that enhance productivity and impress clients.',
     description:
       '<p>We understand that office environments directly impact employee productivity, client impressions, and overall business success. Our corporate cleaning services maintain professional spaces that support your business objectives.</p>',
-    heroImageUrl: '/services/office-clean.jpg',
+    heroImageUrl: '/heroes/market-corporate.jpg',
     order: 1,
   },
   {
@@ -68,7 +68,16 @@ export const MARKET_CATALOG: MarketDefinition[] = [
     excerpt: 'Safe, healthy learning environments for schools, daycares, and educational institutions.',
     description:
       '<p>Educational facilities need cleaning that protects student and staff health while maintaining safe, welcoming learning environments.</p>',
-    heroImageUrl: '/services/green-clean.jpg',
+    heroImageUrl: '/heroes/market-education.jpg',
     order: 7,
+  },
+  {
+    title: 'Residential Buildings',
+    slug: 'residential-buildings',
+    excerpt: 'Professional cleaning programs for condominiums, apartments, and residential properties.',
+    description:
+      '<p>Residential buildings require consistent, high-standard cleaning that protects residents, preserves property value, and supports a healthy living environment. Our environmental services team delivers reliable programs tailored to multi-unit residential settings.</p>',
+    heroImageUrl: '/heroes/market-residential.jpg',
+    order: 8,
   },
 ]

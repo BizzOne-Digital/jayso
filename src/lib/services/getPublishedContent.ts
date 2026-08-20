@@ -3,11 +3,13 @@ import FAQ from '@/lib/models/FAQ'
 import Offer from '@/lib/models/Offer'
 import Resource from '@/lib/models/Resource'
 import Product from '@/lib/models/Product'
+import { RESOURCE_CATALOG } from '@/lib/data/resources'
+import { PRODUCT_CATALOG } from '@/lib/data/products'
 
 const FALLBACK_FAQS = [
   {
     _id: 'faq-1',
-    question: 'What areas does OPROFILE Environmental serve?',
+    question: 'What areas does Profile Environmental serve?',
     answer:
       'We provide services across the Greater Toronto Area and surrounding regions. Contact us to confirm service availability for your specific location.',
     category: 'General',
@@ -62,7 +64,7 @@ const FALLBACK_OFFERS = [
     slug: 'one-month-trial',
     excerpt: 'Experience our service quality risk-free with a one-month trial program.',
     description:
-      '<p>Try OPROFILE Environmental for one month with no long-term commitment. Experience our quality, professionalism, and customer service firsthand.</p>',
+      '<p>Try Profile Environmental for one month with no long-term commitment. Experience our quality, professionalism, and customer service firsthand.</p>',
     ctaLabel: 'Request Trial Program',
     ctaUrl: '/booking',
     order: 1,
@@ -102,81 +104,6 @@ const FALLBACK_OFFERS = [
   },
 ]
 
-const FALLBACK_RESOURCES = [
-  {
-    _id: 'resource-1',
-    title: 'Infection Prevention Best Practices Guide',
-    slug: 'infection-prevention-guide',
-    description: 'Comprehensive guide covering infection prevention protocols and best practices.',
-    category: 'Guides',
-    pdfUrl: '/uploads/infection-prevention-guide.pdf',
-    isGated: false,
-    order: 1,
-  },
-  {
-    _id: 'resource-2',
-    title: 'Green Cleaning Certification Standards',
-    slug: 'green-cleaning-standards',
-    description: 'Overview of major green cleaning certifications including Green Seal and LEED requirements.',
-    category: 'Guides',
-    pdfUrl: '/uploads/green-cleaning-standards.pdf',
-    isGated: false,
-    order: 2,
-  },
-  {
-    _id: 'resource-3',
-    title: 'Facility Cleaning Checklist Template',
-    slug: 'cleaning-checklist-template',
-    description: 'Downloadable cleaning checklist template for maintaining consistent cleaning standards.',
-    category: 'Templates',
-    pdfUrl: '/uploads/cleaning-checklist-template.pdf',
-    isGated: true,
-    order: 3,
-  },
-]
-
-const FALLBACK_PRODUCTS = [
-  {
-    _id: 'product-1',
-    title: 'Professional Grade Disinfectant Spray',
-    slug: 'professional-disinfectant-spray',
-    excerpt: 'Hospital-grade disinfectant effective against a broad spectrum of pathogens.',
-    description: '<p>EPA-registered hospital-grade disinfectant suitable for hard, non-porous surfaces.</p>',
-    category: 'Disinfectants',
-    priceLabel: 'Contact for pricing',
-    showPrice: false,
-    inStock: true,
-    featured: true,
-    order: 1,
-  },
-  {
-    _id: 'product-2',
-    title: 'Green Seal Certified All-Purpose Cleaner',
-    slug: 'green-all-purpose-cleaner',
-    excerpt: 'Eco-friendly all-purpose cleaner safe for occupants and effective on multiple surfaces.',
-    description: '<p>Green Seal certified cleaner for daily maintenance cleaning.</p>',
-    category: 'Cleaners',
-    priceLabel: 'Contact for pricing',
-    showPrice: false,
-    inStock: true,
-    featured: true,
-    order: 2,
-  },
-  {
-    _id: 'product-3',
-    title: 'Commercial Microfiber Cleaning System',
-    slug: 'microfiber-cleaning-system',
-    excerpt: 'Complete microfiber system for efficient, sustainable cleaning.',
-    description: '<p>Professional microfiber mop and cloth system for superior cleaning results.</p>',
-    category: 'Equipment',
-    priceLabel: 'Contact for pricing',
-    showPrice: false,
-    inStock: true,
-    featured: true,
-    order: 3,
-  },
-]
-
 export async function getPublishedFAQs() {
   try {
     await connectDB()
@@ -200,23 +127,60 @@ export async function getPublishedOffers() {
 }
 
 export async function getPublishedResources() {
+  let dbMap = new Map<string, any>()
+
   try {
     await connectDB()
     const resources = await Resource.find({ status: 'published' }).sort({ order: 1 }).lean()
-    if (resources.length) return JSON.parse(JSON.stringify(resources))
+    dbMap = new Map(resources.map((resource: any) => [resource.slug, resource]))
   } catch (error) {
     console.error('Error loading resources:', error)
   }
-  return FALLBACK_RESOURCES
+
+  return RESOURCE_CATALOG.map((resource) => {
+    const dbResource = dbMap.get(resource.slug)
+    const pdfUrl = dbResource?.pdfUrl || resource.pdfUrl
+    const isExternal = resource.isExternal || pdfUrl.startsWith('http')
+
+    return {
+      _id: dbResource?._id?.toString() || `catalog-${resource.slug}`,
+      title: dbResource?.title || resource.title,
+      slug: resource.slug,
+      description: dbResource?.description || resource.description,
+      category: dbResource?.category || resource.category,
+      pdfUrl,
+      isExternal,
+      isGated: dbResource?.isGated ?? resource.isGated ?? false,
+      order: resource.order,
+    }
+  })
 }
 
 export async function getPublishedProducts() {
+  let dbMap = new Map<string, any>()
+
   try {
     await connectDB()
     const products = await Product.find({ status: 'published' }).sort({ order: 1 }).lean()
-    if (products.length) return JSON.parse(JSON.stringify(products))
+    dbMap = new Map(products.map((product: any) => [product.slug, product]))
   } catch (error) {
     console.error('Error loading products:', error)
   }
-  return FALLBACK_PRODUCTS
+
+  return PRODUCT_CATALOG.map((product) => {
+    const dbProduct = dbMap.get(product.slug)
+    return {
+      _id: dbProduct?._id?.toString() || `catalog-${product.slug}`,
+      title: dbProduct?.title || product.title,
+      slug: product.slug,
+      excerpt: dbProduct?.excerpt || product.excerpt,
+      description: dbProduct?.description || product.description,
+      category: dbProduct?.category || product.category,
+      priceLabel: dbProduct?.priceLabel || product.priceLabel || 'Contact for pricing',
+      showPrice: dbProduct?.showPrice ?? false,
+      inStock: dbProduct?.inStock ?? true,
+      featured: dbProduct?.featured ?? false,
+      order: product.order,
+    }
+  })
 }
