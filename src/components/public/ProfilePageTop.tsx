@@ -6,6 +6,7 @@ import { AnimatedSection } from '@/components/public/motion/FadeIn'
 
 interface ProfilePageTopProps extends BannerHeroContent {
   footerNote?: string
+  layout?: 'split' | 'featured'
 }
 
 export default function ProfilePageTop({
@@ -15,12 +16,14 @@ export default function ProfilePageTop({
   contentBox,
   links,
   footerNote,
+  layout = 'split',
 }: ProfilePageTopProps) {
   return (
     <>
       <ProfileTopGrid
         image={image}
         title={title}
+        layout={layout}
         titleClassName={titleVariant === 'dark' ? 'text-graphite' : undefined}
         sidebar={{
           heading: contentBox?.heading,

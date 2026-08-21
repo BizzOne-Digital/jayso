@@ -20,7 +20,7 @@ export interface BannerHeroContent {
 
 export const PAGE_HEROES = {
   about: {
-    image: '/profile/about-hero.jpg',
+    image: '/heroes/about.jpg',
     title: 'A Well-Maintained Facility Produces Great Customer Experiences',
     contentBox: {
       body: 'Effective housekeeping can eliminate some workplace hazards and help get a job done safely and properly. Poor housekeeping can frequently contribute to accidents by hiding hazards that cause injuries.',
@@ -55,7 +55,7 @@ export const PAGE_HEROES = {
     ],
   },
   markets: {
-    image: '/profile/markets-hero.jpg',
+    image: '/heroes/markets.jpg',
     title: "Enhance Customers' Experience Attract and Retain Customers and Tenants",
     contentBox: {
       heading: 'Reduce Absence, Increase Staff Morale',

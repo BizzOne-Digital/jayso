@@ -51,6 +51,7 @@ interface ProfileTopGridProps {
   titleClassName?: string
   sidebar: ProfileSidebarProps
   imageClassName?: string
+  layout?: 'split' | 'featured'
 }
 
 export default function ProfileTopGrid({
@@ -59,7 +60,50 @@ export default function ProfileTopGrid({
   titleClassName,
   sidebar,
   imageClassName,
+  layout = 'split',
 }: ProfileTopGridProps) {
+  if (layout === 'featured') {
+    return (
+      <section className="bg-white pt-6 sm:pt-8">
+        <div className="container-custom">
+          <FadeInStagger immediate stagger={0.1}>
+            <FadeInItem>
+              <div className="relative min-h-[280px] sm:min-h-[380px] lg:min-h-[460px] rounded-xl overflow-hidden border border-gray-100 shadow-sm">
+                <Image
+                  src={image}
+                  alt=""
+                  fill
+                  className={cn(
+                    'object-cover object-center brightness-[1.05] saturate-[0.85]',
+                    imageClassName
+                  )}
+                  priority
+                  sizes="(max-width: 1280px) 100vw, 1200px"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent" />
+              </div>
+            </FadeInItem>
+
+            <FadeInItem className="mt-6 sm:mt-8">
+              <h1
+                className={cn(
+                  'font-display font-bold text-2xl sm:text-3xl lg:text-4xl leading-tight text-graphite max-w-4xl',
+                  titleClassName
+                )}
+              >
+                {title}
+              </h1>
+            </FadeInItem>
+
+            <FadeInItem className="mt-5 sm:mt-6 max-w-3xl">
+              <ProfileSidebar {...sidebar} className="h-auto" />
+            </FadeInItem>
+          </FadeInStagger>
+        </div>
+      </section>
+    )
+  }
+
   return (
     <section className="bg-white pt-6 sm:pt-8">
       <div className="container-custom">

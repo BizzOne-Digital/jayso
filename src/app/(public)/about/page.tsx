@@ -27,7 +27,7 @@ const servicesInclude = [
 export default function AboutPage() {
   return (
     <div className="min-h-screen">
-      <ProfilePageTop {...PAGE_HEROES.about} />
+      <ProfilePageTop {...PAGE_HEROES.about} layout="featured" />
 
       <section className="section-padding bg-white">
         <AnimatedSection className="container-custom max-w-4xl">
