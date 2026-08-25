@@ -45,6 +45,19 @@ export function ProfileSidebar({ heading, body, emphasis, links, className }: Pr
   )
 }
 
+function HeroTitle({ title, className }: { title: string; className?: string }) {
+  return (
+    <h1
+      className={cn(
+        'font-display font-bold text-2xl sm:text-3xl lg:text-4xl leading-tight text-center text-graphite max-w-4xl mx-auto text-balance',
+        className
+      )}
+    >
+      {title}
+    </h1>
+  )
+}
+
 interface ProfileTopGridProps {
   image: string
   title: string
@@ -62,40 +75,37 @@ export default function ProfileTopGrid({
   imageClassName,
   layout = 'split',
 }: ProfileTopGridProps) {
+  const imageBlock = (className: string, sizes: string) => (
+    <div className={cn('relative rounded-xl overflow-hidden border border-gray-100 shadow-sm', className)}>
+      <Image
+        src={image}
+        alt=""
+        fill
+        className={cn('object-cover object-center brightness-[1.05] saturate-[0.85]', imageClassName)}
+        priority
+        sizes={sizes}
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/5 via-transparent to-transparent" />
+    </div>
+  )
+
   if (layout === 'featured') {
     return (
       <section className="bg-white pt-6 sm:pt-8">
         <div className="container-custom">
           <FadeInStagger immediate stagger={0.1}>
+            <FadeInItem className="mb-5 sm:mb-6">
+              <HeroTitle title={title} className={titleClassName} />
+            </FadeInItem>
+
             <FadeInItem>
-              <div className="relative min-h-[280px] sm:min-h-[380px] lg:min-h-[460px] rounded-xl overflow-hidden border border-gray-100 shadow-sm">
-                <Image
-                  src={image}
-                  alt=""
-                  fill
-                  className={cn(
-                    'object-cover object-center brightness-[1.05] saturate-[0.85]',
-                    imageClassName
-                  )}
-                  priority
-                  sizes="(max-width: 1280px) 100vw, 1200px"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent" />
-              </div>
+              {imageBlock(
+                'min-h-[280px] sm:min-h-[380px] lg:min-h-[460px]',
+                '(max-width: 1280px) 100vw, 1200px'
+              )}
             </FadeInItem>
 
-            <FadeInItem className="mt-6 sm:mt-8">
-              <h1
-                className={cn(
-                  'font-display font-bold text-2xl sm:text-3xl lg:text-4xl leading-tight text-graphite max-w-4xl',
-                  titleClassName
-                )}
-              >
-                {title}
-              </h1>
-            </FadeInItem>
-
-            <FadeInItem className="mt-5 sm:mt-6 max-w-3xl">
+            <FadeInItem className="mt-5 sm:mt-6 max-w-3xl mx-auto">
               <ProfileSidebar {...sidebar} className="h-auto" />
             </FadeInItem>
           </FadeInStagger>
@@ -107,34 +117,20 @@ export default function ProfileTopGrid({
   return (
     <section className="bg-white pt-6 sm:pt-8">
       <div className="container-custom">
-        <FadeInStagger className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-5" immediate stagger={0.12}>
-          <FadeInItem className="lg:col-span-2 relative min-h-[260px] sm:min-h-[320px] rounded-xl overflow-hidden border border-gray-100 shadow-sm">
-            <Image
-              src={image}
-              alt=""
-              fill
-              className={cn(
-                'object-cover object-center brightness-[1.08] saturate-[0.75] contrast-[0.95]',
-                imageClassName
-              )}
-              priority
-              sizes="(max-width: 1024px) 100vw, 66vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-white/25 via-white/10 to-transparent" />
-            <div className="absolute inset-0 p-5 sm:p-7 flex items-start">
-              <h1
-                className={cn(
-                  'max-w-lg font-display font-bold text-2xl sm:text-3xl lg:text-4xl leading-tight text-profile-blue drop-shadow-sm',
-                  titleClassName
-                )}
-              >
-                {title}
-              </h1>
-            </div>
+        <FadeInStagger immediate stagger={0.1}>
+          <FadeInItem className="mb-5 sm:mb-6">
+            <HeroTitle title={title} className={titleClassName} />
           </FadeInItem>
 
           <FadeInItem>
-            <ProfileSidebar {...sidebar} />
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-5">
+              {imageBlock(
+                'lg:col-span-2 min-h-[260px] sm:min-h-[320px]',
+                '(max-width: 1024px) 100vw, 66vw'
+              )}
+
+              <ProfileSidebar {...sidebar} />
+            </div>
           </FadeInItem>
         </FadeInStagger>
       </div>
