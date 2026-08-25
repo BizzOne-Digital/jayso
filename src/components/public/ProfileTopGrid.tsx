@@ -49,7 +49,7 @@ function HeroTitle({ title, className }: { title: string; className?: string }) 
   return (
     <h1
       className={cn(
-        'font-display font-bold text-2xl sm:text-3xl lg:text-4xl leading-tight text-center text-graphite max-w-4xl mx-auto text-balance',
+        'font-display font-bold text-2xl sm:text-3xl lg:text-4xl xl:text-[2.75rem] leading-tight text-center text-graphite max-w-5xl mx-auto text-balance',
         className
       )}
     >
@@ -105,8 +105,27 @@ export default function ProfileTopGrid({
               )}
             </FadeInItem>
 
-            <FadeInItem className="mt-5 sm:mt-6 max-w-3xl mx-auto">
-              <ProfileSidebar {...sidebar} className="h-auto" />
+            <FadeInItem className="mt-5 sm:mt-6">
+              <aside className="bg-soft-ice border border-gray-200 rounded-xl p-5 sm:p-6 lg:p-8 h-auto">
+                <div className="lg:grid lg:grid-cols-3 lg:gap-8 lg:items-center">
+                  <div className="lg:col-span-2">
+                    {sidebar.heading && (
+                      <h2 className="font-display text-lg font-bold text-graphite mb-3">
+                        {sidebar.heading}
+                      </h2>
+                    )}
+                    <p className="text-sm sm:text-base text-graphite/80 leading-relaxed">{sidebar.body}</p>
+                    {sidebar.emphasis && (
+                      <p className="mt-3 text-sm sm:text-base font-bold text-graphite">{sidebar.emphasis}</p>
+                    )}
+                  </div>
+                  {sidebar.links && sidebar.links.length > 0 && (
+                    <div className="mt-5 lg:mt-0">
+                      <ProfileCtaList links={sidebar.links} />
+                    </div>
+                  )}
+                </div>
+              </aside>
             </FadeInItem>
           </FadeInStagger>
         </div>
