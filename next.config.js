@@ -16,7 +16,7 @@ const nextConfig = {
     ],
   },
   experimental: {
-    serverComponentsExternalPackages: ['argon2', 'mongoose'],
+    serverComponentsExternalPackages: ['argon2', 'mongoose', 'bcryptjs'],
     optimizePackageImports: ['lucide-react', 'framer-motion'],
   },
 }

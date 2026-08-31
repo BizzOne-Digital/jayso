@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
-import argon2 from 'argon2'
 import { connectDB } from '../src/lib/db/mongoose'
+import { hashPassword } from '../src/lib/auth/password'
 import AdminUser from '../src/lib/models/AdminUser'
 import SiteSettings from '../src/lib/models/SiteSettings'
 import Integration from '../src/lib/models/Integration'
@@ -36,7 +36,7 @@ async function seed() {
 
     // Create Admin User
     console.log('👤 Creating admin user...')
-    const hashedPassword = await argon2.hash('Admin@123')
+    const hashedPassword = await hashPassword('Admin@123')
     await AdminUser.create({
       email: 'admin@profilegroups.com',
       password: hashedPassword,

@@ -1,5 +1,6 @@
 import { connectDB } from '@/lib/db/mongoose'
 import AdminUser from '@/lib/models/AdminUser'
+import { verifyPassword } from '@/lib/auth/password'
 
 interface Credentials {
   email?: string
@@ -22,8 +23,7 @@ export async function authorizeAdmin(credentials: Credentials) {
     return null
   }
 
-  const argon2 = await import('argon2')
-  const isValidPassword = await argon2.verify(user.password, credentials.password)
+  const isValidPassword = await verifyPassword(user.password, credentials.password)
 
   if (!isValidPassword) {
     return null
