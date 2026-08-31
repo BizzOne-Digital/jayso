@@ -3,6 +3,7 @@ import { connectDB } from '@/lib/db/mongoose'
 import SiteSettings from '@/lib/models/SiteSettings'
 import Integration from '@/lib/models/Integration'
 import { requireAdminApi } from '@/lib/auth/adminApi'
+import { revalidateSiteLayout } from '@/lib/services/revalidatePublic'
 
 export const dynamic = 'force-dynamic'
 
@@ -44,6 +45,8 @@ export async function PUT(request: NextRequest) {
       new: true,
     })
   }
+
+  revalidateSiteLayout()
 
   return NextResponse.json({
     success: true,

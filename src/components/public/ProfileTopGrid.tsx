@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils/cn'
+import { isApiUploadUrl } from '@/lib/utils/resolveImageUrl'
 import type { ProfileCtaLink } from '@/lib/data/profileContent'
 import { FadeInItem, FadeInStagger } from '@/components/public/motion/FadeIn'
 
@@ -84,6 +85,7 @@ export default function ProfileTopGrid({
         className={cn('object-cover object-center brightness-[1.05] saturate-[0.85]', imageClassName)}
         priority
         sizes={sizes}
+        unoptimized={isApiUploadUrl(image)}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/5 via-transparent to-transparent" />
     </div>

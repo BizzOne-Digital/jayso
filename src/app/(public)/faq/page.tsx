@@ -7,6 +7,8 @@ import { resolveImageUrl } from '@/lib/utils/resolveImageUrl'
 import { AnimatedGrid, AnimatedSection } from '@/components/public/motion/FadeIn'
 import { ArrowRight } from 'lucide-react'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'FAQ',
   description: 'Frequently asked questions about Profile Environmental Support Services.',

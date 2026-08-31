@@ -8,6 +8,8 @@ import { getServiceHero } from '@/lib/data/pageHeroes'
 import { AnimatedGrid, AnimatedSection } from '@/components/public/motion/FadeIn'
 import { ArrowRight, Calculator, CheckCircle, Phone } from 'lucide-react'
 
+export const dynamic = 'force-dynamic'
+
 interface Props {
   params: { slug: string }
 }
@@ -38,8 +40,21 @@ export default async function ServiceDetailPage({ params }: Props) {
     notFound()
   }
 
-  const bannerHero = getServiceHero(params.slug)
-  const heroImage = service.heroImageUrl || service.imageUrl || '/hero-bg.png'
+  const staticBanner = getServiceHero(params.slug)
+  const heroImage =
+    service.heroImageUrl ||
+    service.imageUrl ||
+    staticBanner?.image ||
+    '/hero-bg.png'
+  const bannerHero = {
+    ...(staticBanner || {}),
+    title: service.title || staticBanner?.title || service.title,
+    image: heroImage,
+    contentBox: {
+      ...staticBanner?.contentBox,
+      body: service.excerpt || staticBanner?.contentBox?.body || '',
+    },
+  }
   const ctaLabel =
     service.ctaLabel && service.ctaLabel !== 'Click Here'
       ? service.ctaLabel

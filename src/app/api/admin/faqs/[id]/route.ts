@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { connectDB } from '@/lib/db/mongoose'
 import FAQ from '@/lib/models/FAQ'
 import { requireAdminApi } from '@/lib/auth/adminApi'
+import { revalidateFaqs } from '@/lib/services/revalidatePublic'
 
 export const dynamic = 'force-dynamic'
 
@@ -16,6 +17,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
   const body = await request.json()
   await connectDB()
   const faq = await FAQ.findByIdAndUpdate(params.id, body, { new: true })
+  revalidateFaqs()
   return NextResponse.json({ success: true, faq })
 }
 
@@ -25,5 +27,6 @@ export async function DELETE(_request: NextRequest, { params }: RouteParams) {
 
   await connectDB()
   await FAQ.findByIdAndDelete(params.id)
+  revalidateFaqs()
   return NextResponse.json({ success: true })
 }

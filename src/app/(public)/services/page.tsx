@@ -3,9 +3,13 @@ import Link from 'next/link'
 import ProfilePageTop from '@/components/public/ProfilePageTop'
 import ServiceCard from '@/components/public/ServiceCard'
 import { getPublishedServices } from '@/lib/services/getPublishedServices'
+import { getManagedPage, getSection } from '@/lib/services/getPageContent'
+import { resolveImageUrl } from '@/lib/utils/resolveImageUrl'
 import { PAGE_HEROES } from '@/lib/data/pageHeroes'
 import { AnimatedGrid, AnimatedSection } from '@/components/public/motion/FadeIn'
 import { ArrowRight } from 'lucide-react'
+
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Our Services',
@@ -14,11 +18,23 @@ export const metadata: Metadata = {
 }
 
 export default async function ServicesPage() {
-  const services = await getPublishedServices()
+  const [services, page] = await Promise.all([
+    getPublishedServices(),
+    getManagedPage('services'),
+  ])
+  const hero = getSection(page.sections, 'Hero')
+  const fallback = PAGE_HEROES.services
 
   return (
     <div className="min-h-screen">
-      <ProfilePageTop {...PAGE_HEROES.services} />
+      <ProfilePageTop
+        image={resolveImageUrl(hero?.imageUrl || fallback.image)}
+        title={hero?.heading || fallback.title}
+        contentBox={{
+          body: hero?.content || fallback.contentBox?.body || '',
+        }}
+        links={fallback.links}
+      />
 
       <section className="bg-white pt-4 pb-8 sm:pt-6 sm:pb-10">
         <div className="container-custom">

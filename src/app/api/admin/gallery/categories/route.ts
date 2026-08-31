@@ -3,6 +3,7 @@ import { connectDB } from '@/lib/db/mongoose'
 import GalleryCategory from '@/lib/models/GalleryCategory'
 import GalleryImage from '@/lib/models/GalleryImage'
 import { requireAdminApi } from '@/lib/auth/adminApi'
+import { revalidateGallery } from '@/lib/services/revalidatePublic'
 
 export const dynamic = 'force-dynamic'
 
@@ -37,6 +38,8 @@ export async function POST(request: NextRequest) {
     order: body.order ?? (maxOrder?.order ?? 0) + 1,
     status: body.status || 'published',
   })
+
+  revalidateGallery()
 
   return NextResponse.json({ success: true, category })
 }

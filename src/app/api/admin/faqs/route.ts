@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { connectDB } from '@/lib/db/mongoose'
 import FAQ from '@/lib/models/FAQ'
 import { requireAdminApi } from '@/lib/auth/adminApi'
+import { revalidateFaqs } from '@/lib/services/revalidatePublic'
 
 export const dynamic = 'force-dynamic'
 
@@ -27,6 +28,8 @@ export async function POST(request: NextRequest) {
     order: body.order ?? (maxOrder?.order ?? 0) + 1,
     status: body.status || 'published',
   })
+
+  revalidateFaqs()
 
   return NextResponse.json({ success: true, faq })
 }

@@ -5,6 +5,8 @@ import { getManagedPage, getSection } from '@/lib/services/getPageContent'
 import { getPublishedGallery } from '@/lib/services/getPublishedGallery'
 import { resolveImageUrl, isApiUploadUrl } from '@/lib/utils/resolveImageUrl'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Gallery',
   description: 'View our facility cleaning projects and results.',

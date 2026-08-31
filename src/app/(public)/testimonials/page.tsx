@@ -5,6 +5,8 @@ import { getManagedPage, getSection } from '@/lib/services/getPageContent'
 import { getPublishedTestimonials } from '@/lib/services/getPublishedTestimonials'
 import { resolveImageUrl } from '@/lib/utils/resolveImageUrl'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Testimonials',
   description: 'What our clients say about Profile Environmental Support Services.',

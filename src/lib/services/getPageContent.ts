@@ -57,3 +57,54 @@ export function getSection(
 ): IPageSection | undefined {
   return sections.find((s) => s.name === name && s.enabled !== false)
 }
+
+export function getGalleryImageSections(sections: IPageSection[]): IPageSection[] {
+  return sections
+    .filter((s) => s.enabled !== false && s.name.startsWith('Gallery Image'))
+    .sort((a, b) => a.order - b.order)
+}
+
+export interface HomeTopContent {
+  heroImage: string
+  heroTitle: string
+  factsHeading: string
+  factsBody: string
+  factsEmphasis?: string
+  galleryImages: string[]
+  absenteeismHeading: string
+  absenteeismBody: string
+  absenteeismEmphasis?: string
+  absenteeismImage: string
+  assessmentHeading: string
+  assessmentBody: string
+  assessmentEmphasis?: string
+  assessmentLeftImage: string
+  assessmentCenterImage: string
+}
+
+export function buildHomeTopContent(sections: IPageSection[]): HomeTopContent {
+  const hero = getSection(sections, 'Hero')
+  const facts = getSection(sections, 'Facts Sidebar')
+  const absenteeism = getSection(sections, 'Absenteeism Block')
+  const assessment = getSection(sections, 'Assessment Block')
+  const assessmentCenter = getSection(sections, 'Assessment Center Image')
+  const gallery = getGalleryImageSections(sections)
+
+  return {
+    heroImage: hero?.imageUrl || '/profile/home-lobby.jpg',
+    heroTitle: hero?.heading || 'Your Facility Impacts Your Customers Experience',
+    factsHeading: facts?.heading || 'Facts:',
+    factsBody: facts?.content || '',
+    factsEmphasis: facts?.ctaLabel,
+    galleryImages: gallery.map((s) => s.imageUrl || '').filter(Boolean),
+    absenteeismHeading: absenteeism?.heading || '',
+    absenteeismBody: absenteeism?.content || '',
+    absenteeismEmphasis: absenteeism?.ctaLabel,
+    absenteeismImage: absenteeism?.imageUrl || '/profile/bottom-right.jpg',
+    assessmentHeading: assessment?.heading || '',
+    assessmentBody: assessment?.content || '',
+    assessmentEmphasis: assessment?.ctaLabel,
+    assessmentLeftImage: assessment?.imageUrl || '/profile/bottom-left.jpg',
+    assessmentCenterImage: assessmentCenter?.imageUrl || '/profile/bottom-center.jpg',
+  }
+}

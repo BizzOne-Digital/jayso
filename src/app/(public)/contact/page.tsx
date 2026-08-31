@@ -8,6 +8,8 @@ import { getManagedPage, getSection } from '@/lib/services/getPageContent'
 import { resolveImageUrl } from '@/lib/utils/resolveImageUrl'
 import { Phone, Mail, MessageCircle, MapPin } from 'lucide-react'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Contact Us',
   description: 'Contact Profile Environmental Support Services for quotes, consultations, and service inquiries.',

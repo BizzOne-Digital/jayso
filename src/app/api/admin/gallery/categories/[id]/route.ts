@@ -4,6 +4,7 @@ import GalleryCategory from '@/lib/models/GalleryCategory'
 import GalleryImage from '@/lib/models/GalleryImage'
 import { requireAdminApi } from '@/lib/auth/adminApi'
 import { deleteUploadByUrl } from '@/lib/uploads/deleteUpload'
+import { revalidateGallery } from '@/lib/services/revalidatePublic'
 
 export const dynamic = 'force-dynamic'
 
@@ -30,6 +31,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
   const body = await request.json()
   await connectDB()
   const category = await GalleryCategory.findByIdAndUpdate(params.id, body, { new: true })
+  revalidateGallery()
   return NextResponse.json({ success: true, category })
 }
 
@@ -44,6 +46,8 @@ export async function DELETE(_request: NextRequest, { params }: RouteParams) {
   }
   await GalleryImage.deleteMany({ categoryId: params.id })
   await GalleryCategory.findByIdAndDelete(params.id)
+
+  revalidateGallery()
 
   return NextResponse.json({ success: true })
 }

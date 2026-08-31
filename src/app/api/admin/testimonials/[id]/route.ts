@@ -3,6 +3,7 @@ import { connectDB } from '@/lib/db/mongoose'
 import Testimonial from '@/lib/models/Testimonial'
 import { requireAdminApi } from '@/lib/auth/adminApi'
 import { deleteUploadByUrl } from '@/lib/uploads/deleteUpload'
+import { revalidateTestimonials } from '@/lib/services/revalidatePublic'
 
 export const dynamic = 'force-dynamic'
 
@@ -24,6 +25,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
   }
 
   const testimonial = await Testimonial.findByIdAndUpdate(params.id, body, { new: true })
+  revalidateTestimonials()
   return NextResponse.json({ success: true, testimonial })
 }
 
@@ -35,6 +37,8 @@ export async function DELETE(_request: NextRequest, { params }: RouteParams) {
   const existing = await Testimonial.findById(params.id).lean()
   if (existing) await deleteUploadByUrl(existing.imageUrl)
   await Testimonial.findByIdAndDelete(params.id)
+
+  revalidateTestimonials()
 
   return NextResponse.json({ success: true })
 }

@@ -4,6 +4,7 @@ import Service from '@/lib/models/Service'
 import { requireAdminApi } from '@/lib/auth/adminApi'
 import { SERVICE_CATALOG } from '@/lib/data/services'
 import { deleteUploadByUrl } from '@/lib/uploads/deleteUpload'
+import { revalidateService } from '@/lib/services/revalidatePublic'
 
 export const dynamic = 'force-dynamic'
 
@@ -60,6 +61,8 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     },
     { upsert: true, new: true }
   )
+
+  revalidateService(params.slug)
 
   return NextResponse.json({ success: true, service })
 }

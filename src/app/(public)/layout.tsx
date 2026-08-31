@@ -6,6 +6,8 @@ import Header from '@/components/public/Header'
 import Footer from '@/components/public/Footer'
 import MobileActionBar from '@/components/public/MobileActionBar'
 
+export const dynamic = 'force-dynamic'
+
 async function getLayoutData() {
   try {
     await connectDB()

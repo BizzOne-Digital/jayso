@@ -9,6 +9,7 @@ import {
   type ManagedPageSlug,
 } from '@/lib/data/pageDefaults'
 import { deleteUploadByUrl } from '@/lib/uploads/deleteUpload'
+import { revalidateManagedPage } from '@/lib/services/revalidatePublic'
 
 export const dynamic = 'force-dynamic'
 
@@ -77,6 +78,8 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     },
     { upsert: true, new: true }
   )
+
+  revalidateManagedPage(slug)
 
   return NextResponse.json({ success: true, page })
 }

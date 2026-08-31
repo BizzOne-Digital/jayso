@@ -3,6 +3,7 @@ import { connectDB } from '@/lib/db/mongoose'
 import GalleryImage from '@/lib/models/GalleryImage'
 import { requireAdminApi } from '@/lib/auth/adminApi'
 import { deleteUploadByUrl } from '@/lib/uploads/deleteUpload'
+import { revalidateGallery } from '@/lib/services/revalidatePublic'
 
 export const dynamic = 'force-dynamic'
 
@@ -14,6 +15,7 @@ export async function POST(request: NextRequest) {
   await connectDB()
 
   const image = await GalleryImage.create(body)
+  revalidateGallery()
   return NextResponse.json({ success: true, image })
 }
 
@@ -33,6 +35,7 @@ export async function PUT(request: NextRequest) {
   }
 
   const image = await GalleryImage.findByIdAndUpdate(id, updates, { new: true })
+  revalidateGallery()
   return NextResponse.json({ success: true, image })
 }
 
@@ -48,6 +51,8 @@ export async function DELETE(request: NextRequest) {
   const existing = await GalleryImage.findById(id).lean()
   if (existing) await deleteUploadByUrl(existing.imageUrl)
   await GalleryImage.findByIdAndDelete(id)
+
+  revalidateGallery()
 
   return NextResponse.json({ success: true })
 }
