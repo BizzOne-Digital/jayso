@@ -1,5 +1,15 @@
 import mongoose, { Schema, Document, Model } from 'mongoose'
 
+export interface IServiceDetailSection {
+  _id?: mongoose.Types.ObjectId
+  name: string
+  heading?: string
+  content?: string
+  imageUrl?: string
+  imageAlt?: string
+  order: number
+}
+
 export interface IService extends Document {
   title: string
   slug: string
@@ -18,6 +28,7 @@ export interface IService extends Document {
   relatedProducts: mongoose.Types.ObjectId[]
   relatedResources: mongoose.Types.ObjectId[]
   relatedFaqs: mongoose.Types.ObjectId[]
+  detailSections?: IServiceDetailSection[]
   ctaLabel?: string
   ctaUrl?: string
   metaTitle?: string
@@ -27,6 +38,15 @@ export interface IService extends Document {
   createdAt: Date
   updatedAt: Date
 }
+
+const ServiceDetailSectionSchema = new Schema<IServiceDetailSection>({
+  name: { type: String, required: true },
+  heading: { type: String },
+  content: { type: String },
+  imageUrl: { type: String },
+  imageAlt: { type: String },
+  order: { type: Number, default: 0 },
+})
 
 const ServiceSchema = new Schema<IService>(
   {
@@ -47,6 +67,7 @@ const ServiceSchema = new Schema<IService>(
     relatedProducts: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
     relatedResources: [{ type: Schema.Types.ObjectId, ref: 'Resource' }],
     relatedFaqs: [{ type: Schema.Types.ObjectId, ref: 'FAQ' }],
+    detailSections: [ServiceDetailSectionSchema],
     ctaLabel: { type: String },
     ctaUrl: { type: String },
     metaTitle: { type: String },

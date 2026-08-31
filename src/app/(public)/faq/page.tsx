@@ -2,6 +2,8 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import PageHero from '@/components/public/PageHero'
 import { getPublishedFAQs } from '@/lib/services/getPublishedContent'
+import { getManagedPage, getSection } from '@/lib/services/getPageContent'
+import { resolveImageUrl } from '@/lib/utils/resolveImageUrl'
 import { AnimatedGrid, AnimatedSection } from '@/components/public/motion/FadeIn'
 import { ArrowRight } from 'lucide-react'
 
@@ -11,7 +13,8 @@ export const metadata: Metadata = {
 }
 
 export default async function FAQPage() {
-  const faqs = await getPublishedFAQs()
+  const [faqs, page] = await Promise.all([getPublishedFAQs(), getManagedPage('faqs')])
+  const hero = getSection(page.sections, 'Hero')
   const categories: string[] = Array.from(
     new Set(faqs.map((faq: { category: string }) => faq.category))
   )
@@ -19,10 +22,10 @@ export default async function FAQPage() {
   return (
     <div className="min-h-screen">
       <PageHero
-        image="/hero-bg.png"
-        eyebrow="Help Center"
-        title="Frequently Asked Questions"
-        subtitle="Answers to common questions about our services, scheduling, and quality standards."
+        image={resolveImageUrl(hero?.imageUrl)}
+        eyebrow={hero?.eyebrow || 'Help Center'}
+        title={hero?.heading || 'Frequently Asked Questions'}
+        subtitle={hero?.content}
       />
 
       <section className="section-padding bg-white">

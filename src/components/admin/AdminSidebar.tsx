@@ -9,16 +9,11 @@ import {
   LayoutDashboard,
   FileText,
   Briefcase,
-  Building2,
-  Tag,
+  DollarSign,
   Image,
   MessageSquare,
   HelpCircle,
-  FileDown,
-  ShoppingBag,
-  Mail,
   Settings,
-  Users,
   LogOut,
 } from 'lucide-react'
 
@@ -26,16 +21,11 @@ const menuItems = [
   { icon: LayoutDashboard, label: 'Dashboard', href: '/admin/dashboard' },
   { icon: FileText, label: 'Pages', href: '/admin/pages' },
   { icon: Briefcase, label: 'Services', href: '/admin/services' },
-  { icon: Building2, label: 'Markets', href: '/admin/markets' },
-  { icon: Tag, label: 'Offers', href: '/admin/offers' },
+  { icon: DollarSign, label: 'Pricing', href: '/admin/pricing' },
   { icon: Image, label: 'Gallery', href: '/admin/gallery' },
   { icon: MessageSquare, label: 'Testimonials', href: '/admin/testimonials' },
   { icon: HelpCircle, label: 'FAQs', href: '/admin/faqs' },
-  { icon: FileDown, label: 'Resources', href: '/admin/resources' },
-  { icon: ShoppingBag, label: 'Products', href: '/admin/products' },
-  { icon: Mail, label: 'Inquiries', href: '/admin/inquiries' },
   { icon: Settings, label: 'Settings', href: '/admin/settings' },
-  { icon: Users, label: 'Admin Users', href: '/admin/users' },
 ]
 
 export default function AdminSidebar() {
@@ -46,14 +36,12 @@ export default function AdminSidebar() {
   }
 
   return (
-    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-deep-navy text-white overflow-y-auto">
-      {/* Logo */}
+    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-deep-navy text-white overflow-y-auto z-40">
       <div className="p-6 border-b border-white/10">
         <Logo variant="light" size="sm" />
         <p className="text-xs text-clean-aqua/60 mt-2">Admin Portal</p>
       </div>
 
-      {/* Navigation */}
       <nav className="p-4 space-y-1">
         {menuItems.map((item) => {
           const Icon = item.icon
@@ -77,7 +65,6 @@ export default function AdminSidebar() {
         })}
       </nav>
 
-      {/* Logout */}
       <div className="p-4 border-t border-white/10">
         <button
           onClick={handleLogout}
