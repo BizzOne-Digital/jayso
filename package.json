@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
-    "seed": "tsx scripts/seed.ts",
+    "seed": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/seed.ts",
     "test": "vitest",
     "test:e2e": "playwright test"
   },
