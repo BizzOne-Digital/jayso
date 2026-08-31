@@ -1,11 +1,10 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import Image from 'next/image'
 import { Loader2, Upload, X } from 'lucide-react'
 import { cn } from '@/lib/utils/cn'
 import type { UploadFolder } from '@/lib/uploads/constants'
-import { resolveImageUrl, isApiUploadUrl } from '@/lib/utils/resolveImageUrl'
+import { resolveImageUrl } from '@/lib/utils/resolveImageUrl'
 
 interface LocalImageFieldProps {
   label: string
@@ -72,14 +71,18 @@ export default function LocalImageField({
 
       <div className="flex flex-col sm:flex-row gap-4 items-start">
         <div className="relative w-full sm:w-40 h-28 rounded-lg overflow-hidden border border-gray-200 bg-soft-ice shrink-0">
-          <Image
-            src={displayUrl}
-            alt=""
-            fill
-            className="object-cover"
-            unoptimized={isApiUploadUrl(value)}
-            sizes="160px"
-          />
+          {value ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={displayUrl}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center text-xs text-graphite/40">
+              No image
+            </div>
+          )}
         </div>
 
         <div className="flex flex-col gap-2">
