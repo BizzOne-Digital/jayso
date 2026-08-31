@@ -1,8 +1,5 @@
 import type { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import { connectDB } from '@/lib/db/mongoose'
-import AdminUser from '@/lib/models/AdminUser'
-import argon2 from 'argon2'
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -13,37 +10,8 @@ export const authOptions: NextAuthOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
-          throw new Error('Invalid credentials')
-        }
-
-        await connectDB()
-
-        const user = await AdminUser.findOne({ 
-          email: credentials.email.toLowerCase(),
-          isActive: true 
-        })
-
-        if (!user) {
-          throw new Error('Invalid credentials')
-        }
-
-        const isValidPassword = await argon2.verify(user.password, credentials.password)
-
-        if (!isValidPassword) {
-          throw new Error('Invalid credentials')
-        }
-
-        // Update last login
-        user.lastLogin = new Date()
-        await user.save()
-
-        return {
-          id: user._id.toString(),
-          email: user.email,
-          name: user.name,
-          role: user.role,
-        }
+        const { authorizeAdmin } = await import('@/lib/auth/authorizeAdmin')
+        return authorizeAdmin(credentials ?? {})
       },
     }),
   ],
@@ -69,7 +37,7 @@ export const authOptions: NextAuthOptions = {
   },
   session: {
     strategy: 'jwt',
-    maxAge: 30 * 24 * 60 * 60, // 30 days
+    maxAge: 30 * 24 * 60 * 60,
   },
   secret: process.env.NEXTAUTH_SECRET,
 }
